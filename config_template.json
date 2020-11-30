@@ -1,0 +1,19 @@
+{
+    "prefix": "",
+    "token": "",
+
+    "trusted": [""],
+
+    "logs": 
+    {
+        "commands": "",
+        "serverInfo": "",
+        "serverError": ""
+    },
+
+    "botStatus":
+    {
+        "activity": "",
+        "activityType": ""
+    }
+}
