@@ -2,6 +2,7 @@ module.exports =
 {
 	name: "ping",
 	description: "Pong!",
+	category: "Info",
 	run: async (client, message) =>
 	{
 		// Post a message.

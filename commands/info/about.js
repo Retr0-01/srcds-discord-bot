@@ -6,6 +6,7 @@ module.exports =
 	name: "about",
 	aliases: ["botinfo"],
 	description: "Shows info about the bot.",
+	category: "Info",
 	run: async (client, message) =>
 	{
 		// Define the days, hours, minutes and second for the uptime.

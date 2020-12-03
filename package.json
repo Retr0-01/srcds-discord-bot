@@ -17,6 +17,10 @@
     "bot": "node .",
     "lint": "esling ."
   },
+  "engines": {
+    "node": "v14.15.1",
+    "npm": "v6.14.8"
+  },
   "keywords": [
     "discord",
     "bot",
@@ -29,6 +33,7 @@
     "@srcds/log-parser": "0.0.2",
     "@srcds/log-receiver": "0.0.3",
     "discord.js": "^12.5.1",
+    "gamedig": "^2.0.23",
     "srcds-rcon": "^2.2.1"
   }
 }

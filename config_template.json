@@ -2,18 +2,20 @@
     "prefix": "",
     "token": "",
 
-    "trusted": [""],
+    "gserverManagers": [""],
+    "botManagers": [""],
 
     "logs": 
     {
         "commands": "",
-        "serverInfo": "",
-        "serverError": ""
+        "gserverKills": "",
+        "gserverInfo": "",
+        "gserverError": ""
     },
 
     "botStatus":
     {
-        "activity": "",
-        "activityType": ""
+        "activityType": "",
+        "activity": ""
     }
 }
