@@ -11,7 +11,7 @@ Bringing Source server management into Discord. When connected through a server 
 * [**Getting Started**](https://github.com/Retr0-01/srcds-discord-bot#getting-started)
     * [**Prerequisites**](https://github.com/Retr0-01/srcds-discord-bot#prerequisites)
     * [**Installing**](https://github.com/Retr0-01/srcds-discord-bot#installing)
-    * [**Building**](https://github.com/Retr0-01/srcds-discord-bot#installing)
+    * [**Building**](https://github.com/Retr0-01/srcds-discord-bot#building)
 * [**Configuration**](https://github.com/Retr0-01/srcds-discord-bot#configuration)
     * [**Required Options**](https://github.com/Retr0-01/srcds-discord-bot#required-options)
     * [**Other Options**](https://github.com/Retr0-01/srcds-discord-bot#other-options)
