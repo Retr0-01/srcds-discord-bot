@@ -1,4 +1,4 @@
 .vscode
-/node_modules
-/config.json
+node_modules
+config.json
 notes.txt

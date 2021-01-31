@@ -3,11 +3,7 @@ const { token } = require("./config.json");
 const fs = require("fs");
 
 // First things first, create our Discord client.
-const client = new Discord.Client
-({
-	// Bot won't be able to ping everyone in a server. There is no reason to allow it to.
-	disableEveryone: true
-});
+const client = new Discord.Client();
 
 // Let's make sure we have a config file.
 if(fs.existsSync("./config.json"))
