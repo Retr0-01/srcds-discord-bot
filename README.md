@@ -1,4 +1,4 @@
-<img src="./images/srcds-bot-banner-smaller.png" title="SRCDS Discord Bot" align="center">
+<img src="./assets/images/srcds-bot-banner-smaller.png" title="SRCDS Discord Bot" align="center">
 
 # Source Dedicated Server Discord Bot &middot; [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com) [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](https://github.com/Retr0-01/srcds-discord-bot/blob/main/LICENCE.md)
 > A Discord bot that allows you to communicate with your Source Dedicated Server.
@@ -94,7 +94,7 @@ help | As mentioned above, shows every command available.
 ping | Pong!
 findserver | Search a Source game server. 
 
-### Game Server
+### Source Game Server
 Command | Description
 ------------ | -------------
 rcon | The base RCON command.
@@ -115,11 +115,11 @@ setactivity | I believe it's self explanatory at this point.
 ## Miscellaneous
 
 ### Built With
-* [Discord.js](https://www.npmjs.com/package/discord.js) - 12.5.1  
-* [GameDig](https://www.npmjs.com/package/gamedig) - 2.0.23  
-* [SRCDS RCON](https://www.npmjs.com/package/srcds-rcon) - 2.2.1  
-* [SRCDS Log Receiver](https://www.npmjs.com/package/@srcds/log-receiver) - 0.0.3  
-* [SRCDS Log Parser](https://www.npmjs.com/package/@srcds/log-parser) - 0.0.2  
+* [Discord.js](https://www.npmjs.com/package/discord.js) 
+* [GameDig](https://www.npmjs.com/package/gamedig)
+* [SRCDS RCON](https://www.npmjs.com/package/srcds-rcon) 
+* [SRCDS Log Receiver](https://www.npmjs.com/package/@srcds/log-receiver)
+* [SRCDS Log Parser](https://www.npmjs.com/package/@srcds/log-parser)  
 
 ### Licensing
 
