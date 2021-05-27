@@ -1,5 +1,5 @@
 const Discord = require("discord.js");
-const info = require("../../package.json");
+const info = require("../../../package.json");
 
 module.exports =
 {
