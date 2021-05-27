@@ -1,4 +1,4 @@
-const Discord = require("discord.js");
+const { MessageEmbed } = require("discord.js");
 const { botManagers } = require("../../config.json");
 
 module.exports =
@@ -10,7 +10,7 @@ module.exports =
 	run: async (client, message) =>
 	{
 		// If the author is not a bot manager and the command is not unlocked to everyone, return this.
-		const noPermEmbed = new Discord.MessageEmbed()
+		const noPermEmbed = new MessageEmbed()
 			.setColor("RED")
 			.setTitle("Invalid Permissions")
 			.setDescription("You can't execute this command.")
@@ -18,7 +18,7 @@ module.exports =
 		if (!botManagers.includes(message.author.id) && !botManagers.includes("any")) return message.reply(noPermEmbed);
 
 		// Sent the confirmation embed.
-		const shutdownEmbed = new Discord.MessageEmbed()
+		const shutdownEmbed = new MessageEmbed()
 			.setColor("#2c3334")
 			.setTitle("Bot Shutdown")
 			.setDescription(`${message.author.username} has terminated ${client.user.username}.`);

@@ -1,12 +1,12 @@
-const Discord = require("discord.js");
+const { Client, Collection } = require("discord.js");
 const { token } = require("./config.json");
-const fs = require("fs");
+const { existsSync, readdir, readdirSync } = require("fs");
 
 // First things first, create our Discord client.
-const client = new Discord.Client();
+const client = new Client();
 
 // Let's make sure we have a config file.
-if(fs.existsSync("./config.json"))
+if(existsSync("./config.json"))
 {
 	console.log("Config file successfully found.");
 }
@@ -17,14 +17,14 @@ else
 }
 
 // Create a collection for commands and aliases.
-client.commands = new Discord.Collection();
-client.aliases = new Discord.Collection();
+client.commands = new Collection();
+client.aliases = new Collection();
 
 // Command Handler
-fs.readdirSync("./commands/").forEach(dir =>
+readdirSync("./commands/").forEach(dir =>
 {
 	// Get and filter the commands.
-	const commands = fs.readdirSync(`./commands/${dir}/`).filter(file => file.endsWith(".js"));
+	const commands = readdirSync(`./commands/${dir}/`).filter(file => file.endsWith(".js"));
 
 	for (let file of commands)
 	{
@@ -47,7 +47,7 @@ fs.readdirSync("./commands/").forEach(dir =>
 });
 
 // Event Handler
-fs.readdir("./events/", (err, files) =>
+readdir("./events/", (err, files) =>
 {
 	if (err) return console.error(err);
 	files.forEach(file =>

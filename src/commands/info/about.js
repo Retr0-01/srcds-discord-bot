@@ -1,4 +1,4 @@
-const Discord = require("discord.js");
+const { MessageEmbed } = require("discord.js");
 const info = require("../../../package.json");
 
 module.exports =
@@ -16,7 +16,7 @@ module.exports =
 		let seconds = Math.floor(client.uptime / 1000) % 60;
 
 		// Create and send the embed.
-		const aboutEmbed = new Discord.MessageEmbed()
+		const aboutEmbed = new MessageEmbed()
 			.setColor("BLUE")
 			.setTitle(client.user.username)
 			.setDescription(info.description)

@@ -1,4 +1,4 @@
-const Discord = require("discord.js");
+const { MessageEmbed } = require("discord.js");
 const { prefix } = require("../../config.json");
 
 module.exports =
@@ -22,7 +22,7 @@ module.exports =
 		// Create and send the help embed.
 		if (!args.length)
 		{
-			const helpEmbed = new Discord.MessageEmbed()
+			const helpEmbed = new MessageEmbed()
 				.setColor("ORANGE")
 				.setTitle(`${client.user.username} Bot Commands`)
 				.setDescription(`You can send \`${prefix}help [command name]\` to get info on a specific command.`)
@@ -43,7 +43,7 @@ module.exports =
 		// If the command doesn't exist return this.
 		if (!command)
 		{
-			const noCommandEmbed = new Discord.MessageEmbed()
+			const noCommandEmbed = new MessageEmbed()
 				.setColor("RED")
 				.setTitle("Error")
 				.setDescription("That's not a valid command.")
@@ -52,7 +52,7 @@ module.exports =
 		}
 
 		// Create the specific command help embed and push a field for every piece of data to data.
-		const specificCommandHelpEmbed = new Discord.MessageEmbed()
+		const specificCommandHelpEmbed = new MessageEmbed()
 			.setColor("ORANGE");
 		data.push(`**Name:** ${command.name}`);
 

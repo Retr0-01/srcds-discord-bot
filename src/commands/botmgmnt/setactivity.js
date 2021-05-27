@@ -1,4 +1,4 @@
-const Discord = require("discord.js");
+const { MessageEmbed } = require("discord.js");
 const { botManagers } = require("../../config.json");
 
 module.exports =
@@ -14,7 +14,7 @@ module.exports =
 		let activityTypes = ["playing", "streaming", "listening", "watching", "competing"];
 
 		// If the author is not a bot manager and the command is not unlocked to everyone, return this.
-		const noPermEmbed = new Discord.MessageEmbed()
+		const noPermEmbed = new MessageEmbed()
 			.setColor("RED")
 			.setTitle("Invalid Permissions")
 			.setDescription("You can't execute this command.")
@@ -22,7 +22,7 @@ module.exports =
 		if (!botManagers.includes(message.author.id) && !botManagers.includes("any")) return message.reply(noPermEmbed);
 
 		// If there is no activity type provided return this.
-		const noTypeEmbed = new Discord.MessageEmbed()
+		const noTypeEmbed = new MessageEmbed()
 			.setColor("RED")
 			.setTitle("Error")
 			.setDescription("Please provide the type of the activity.")
@@ -30,7 +30,7 @@ module.exports =
 		if (!args[0]) return message.reply(noTypeEmbed);
 
 		// If the argument doesn't match the activity types return this.
-		const invalidTypeEmbed = new Discord.MessageEmbed()
+		const invalidTypeEmbed = new MessageEmbed()
 			.setColor("RED")
 			.setTitle("Error")
 			.setDescription(`That's not a valid type.\nThe activity types are: ${activityTypes.join(", ")}.`)
@@ -38,7 +38,7 @@ module.exports =
 		if (!activityTypes.includes(args[0])) return message.reply(invalidTypeEmbed);
 
 		// If there is no second argument (the text to display) provided return this.
-		const noTextEmbed = new Discord.MessageEmbed()
+		const noTextEmbed = new MessageEmbed()
 			.setColor("RED")
 			.setTitle("Error")
 			.setDescription("Please provide more arguments.")
@@ -48,7 +48,7 @@ module.exports =
 		// Set the bot's activity.
 		client.user.setActivity(args.slice(1).join(" "), { type: args[0].toUpperCase() });
 
-		const activitySetEmbed = new Discord.MessageEmbed()
+		const activitySetEmbed = new MessageEmbed()
 			.setColor("GREEN")
 			.setDescription("Successfully set the bot's activity.")
 			.setTimestamp();
