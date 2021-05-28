@@ -2,20 +2,23 @@
     "prefix": "",
     "token": "",
 
-    "gserverManagers": [""],
+    "serverManagers": [""],
     "botManagers": [""],
-
-    "logs": 
-    {
-        "commands": "",
-        "gserverKills": "",
-        "gserverInfo": "",
-        "gserverError": ""
-    },
+    "logChannel": "",
 
     "botStatus":
     {
         "activityType": "",
         "activity": ""
-    }
+    },
+
+	"targetGame": "",
+	"servers": [
+		{
+			"name": "",
+			"ip": "",
+			"port": "",
+			"rconPassword": ""
+		}
+	]
 }

@@ -6,7 +6,7 @@ const { existsSync, readdir, readdirSync } = require("fs");
 const client = new Client();
 
 // Let's make sure we have a config file.
-if(existsSync("./config.json"))
+if(existsSync(`${__dirname}/config.json`))
 {
 	console.log("Config file successfully found.");
 }
@@ -21,15 +21,15 @@ client.commands = new Collection();
 client.aliases = new Collection();
 
 // Command Handler
-readdirSync("./commands/").forEach(dir =>
+readdirSync(`${__dirname}/commands/`).forEach(dir =>
 {
 	// Get and filter the commands.
-	const commands = readdirSync(`./commands/${dir}/`).filter(file => file.endsWith(".js"));
+	const commands = readdirSync(`${__dirname}/commands/${dir}/`).filter(file => file.endsWith(".js"));
 
 	for (let file of commands)
 	{
 		// Pull the commands and add them to the collection.
-		let pull = require(`./commands/${dir}/${file}`);
+		let pull = require(`${__dirname}/commands/${dir}/${file}`);
 		if (pull.name)
 		{
 			client.commands.set(pull.name, pull);
@@ -47,13 +47,13 @@ readdirSync("./commands/").forEach(dir =>
 });
 
 // Event Handler
-readdir("./events/", (err, files) =>
+readdir(`${__dirname}/events/`, (err, files) =>
 {
 	if (err) return console.error(err);
 	files.forEach(file =>
 	{
 		// Define every event.
-		const event = require(`./events/${file}`);
+		const event = require(`${__dirname}/events/${file}`);
 		// Get every event name.
 		let eventName = file.split(".")[0];
 		// Bind the events.
