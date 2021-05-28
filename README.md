@@ -1,10 +1,12 @@
-<img src="./assets/images/srcds-bot-banner-smaller.png" title="SRCDS Discord Bot" style="display: block; margin-left: auto; margin-right: auto;">
+<p align="center">
+  <img src="./assets/images/srcds-bot-banner-smaller.png" title="SRCDS Discord Bot">
+</p>
 
 # Source Dedicated Server Discord Bot &middot; [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com) [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](https://github.com/Retr0-01/srcds-discord-bot/blob/main/LICENCE.md)
 > A Discord bot that allows you to communicate with your Source Dedicated Server.
 
-Bringing Source server management into Discord. This simple bot allows you to run any kind of console commands using Valve's **R**emote **CON**sole protocol to one of your game servers. 
-**THIS IS A WORK IN PROGRESS SO A LOT OF FEATURES/COMMANDS MENTIONED HERE ARE INCOMPLETE OR NOT YET IMPLEMENTED**
+Bringing Source server management into Discord. This simple bot allows you to run any kind of console commands using Valve's **R**emote **CON**sole protocol to one or more of your game servers, or simply just the current status of them.<br>
+**THIS IS A WORK IN PROGRESS SO A LOT OF COMMANDS MENTIONED HERE ARE INCOMPLETE OR NOT YET IMPLEMENTED**
 
 
 ## Contents
