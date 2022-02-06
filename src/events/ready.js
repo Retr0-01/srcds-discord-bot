@@ -1,15 +1,42 @@
-const { botStatus } = require("../config.json");
+const { REST } = require("@discordjs/rest");
+const { Routes } = require("discord-api-types/v9");
+const { token, guildIds, clientId } = require("../../config.json");
 
-module.exports = (client) =>
+module.exports =
 {
-	console.log(`Successfully connected to Discord! ${client.user.username} is now online.`);
+	name: "ready",
+	once: true,
+	execute(client)
+	{
+		//
+		// Slash Command Permissions Update
+		//
+		const rest = new REST({ version: "9" }).setToken(token);
+		const allCommands = client.commands;
 
-	// Return early if we don't have any activity specified.
-	if (!botStatus.activity && !botStatus.activityType) return;
+		for (const guildId of guildIds)
+		{
+			rest.get(Routes.applicationGuildCommands(clientId, guildId))
+				.then(allGuildCmds => allGuildCmds.forEach(async appCommand =>
+				{
+					// We fetch each command individually, then get its perms from our collection...
+					const command = await client.guilds.cache.get(guildId)?.commands.fetch(appCommand.id);
+					const commandPerms = allCommands.get(appCommand.name).permissions;
 
-	// If the activity type is invalid, return early.
-	let activityTypes = ["PLAYING", "STREAMING", "LISTENING", "WATCHING", "COMPETING"];
-	if (!activityTypes.includes(botStatus.activityType)) return console.log("Invalid activity type detected! Check the config file.");
+					if (commandPerms.length > 0)
+					{
+						// And set them.
+						await command.permissions.set({ permissions: commandPerms });
 
-	client.user.setActivity(botStatus.activity, { type: botStatus.activityType });
+						console.log(`Permissions for slash command "${command.name}" on guild ${guildId} updated`);
+					}
+				}))
+				.catch(console.error);
+		}
+
+		console.log(`Ready! Logged in as ${client.user.tag}`);
+
+		// Signal PM2 that we are ready to run
+		process.send("ready");
+	},
 };

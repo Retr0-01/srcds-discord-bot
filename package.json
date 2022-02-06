@@ -3,7 +3,8 @@
   "version": "0.2.0",
   "description": "A Discord bot that allows you to communicate with your Source Dedicated Server.",
   "author": "Retr0#1799",
-  "main": "./src/bot.js",
+  "license": "MIT",
+  "main": "src/index.js",
   "homepage": "https://github.com/Retr0-01/srcds-discord-bot",
   "repository": {
     "type": "git",
@@ -12,10 +13,10 @@
   "bugs": {
     "url": "https://github.com/Retr0-01/srcds-discord-bot/issues"
   },
-  "private": true,
   "scripts": {
-    "bot": "node .",
-    "lint": "eslint ./src/"
+    "start": "pm2 start ecosystem.config.js",
+    "lint": "eslint ./src/",
+    "updateCmds": "node src/deploy-commands.js"
   },
   "keywords": [
     "discord-bot",
@@ -24,9 +25,11 @@
     "tf2",
     "csgo"
   ],
-  "license": "MIT",
   "dependencies": {
-    "discord.js": "^12.5.1",
+    "@discordjs/builders": "^0.12.0",
+    "@discordjs/rest": "^0.3.0",
+    "discord-api-types": "^0.26.1",
+    "discord.js": "^13.6.0",
     "gamedig": "^2.0.23",
     "srcds-rcon": "^2.2.1"
   }

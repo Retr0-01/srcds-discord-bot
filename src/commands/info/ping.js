@@ -1,14 +1,14 @@
+const { SlashCommandBuilder } = require("@discordjs/builders");
+
 module.exports =
 {
-	name: "ping",
-	description: "Pong!",
-	category: "Info",
-	run: async (client, message) =>
+	data: new SlashCommandBuilder()
+		.setName("ping")
+		.setDescription("Pong!")
+		.setDefaultPermission(true),
+	permissions: [],
+	async execute(interaction)
 	{
-		// Post a message.
-		const msg = await message.channel.send("Ping....");
-
-		// Edit the message so we can determine the latency.
-		msg.edit(`Pong! - **${Math.floor(msg.createdTimestamp - message.createdTimestamp)}ms**`);
-	}
+		await interaction.reply(`Pong! \n> API Latency: **${Math.round(interaction.client.ws.ping)}ms**`);
+	},
 };
