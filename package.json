@@ -30,7 +30,6 @@
     "@discordjs/rest": "^0.3.0",
     "discord-api-types": "^0.26.1",
     "discord.js": "^13.6.0",
-    "gamedig": "^2.0.23",
     "srcds-rcon": "^2.2.1"
   }
 }

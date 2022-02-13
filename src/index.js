@@ -44,6 +44,11 @@ for (const file of eventFiles)
 }
 
 //
+// Update guild commands and perms.
+//
+require("./deploy-commands").update();
+
+//
 // PM2 Graceful Actions
 // This will allow a graceful restart/reload/stop of the process
 process.on("SIGINT", () =>
