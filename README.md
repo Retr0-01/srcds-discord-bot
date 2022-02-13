@@ -18,7 +18,9 @@ Bringing Source server management into Discord. This simple bot allows you to ru
   - [Configuration](#configuration)
     - [Required Options](#required-options)
   - [Running](#running)
+  - [Usage](#usage)
   - [Miscellaneous](#miscellaneous)
+    - [FAQ](#faq)
     - [Built With](#built-with)
     - [Licensing](#licensing)
 
@@ -66,13 +68,18 @@ npm run start
 ```
 If everything went well, you should see a the bot online, up and running.
 
+## Usage
+Everything on the bot is done using slash commands. Simply type `/` on a channel, click on the bot icon you have applied and you will see the list of available commands.
+
 ## Miscellaneous
 
+### FAQ
+**Q: Why don't you use a database like SQLite for the server list?**  
+A: I wanted to avoid using SQLite for the simple reason of making the installation process easier for someone with not that much of experience with Node. In other words, I wanted to avoid the node-gyp stuff. The bot doesn't store so much data so using JSON files as a "database" seemed like an ideal solution to it.  
+
 ### Built With
-* [Discord.js](https://www.npmjs.com/package/discord.js) 
-* [GameDig](https://www.npmjs.com/package/gamedig)
+* [Discord.js](https://www.npmjs.com/package/discord.js)
 * [SRCDS RCON](https://www.npmjs.com/package/srcds-rcon)
 
 ### Licensing
-
 This repository is licensed under the MIT Licence. [Learn more.](https://github.com/Retr0-01/srcds-discord-bot/blob/main/LICENCE.md)
