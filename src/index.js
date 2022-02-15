@@ -9,19 +9,17 @@ client.commands = new Collection();
 //
 // Command Handler
 //
-readdirSync(`${__dirname}/commands/`).forEach(dir =>
-{
-	const commandFiles = readdirSync(`${__dirname}/commands/${dir}/`).filter(file => file.endsWith(".js"));
-	for (const file of commandFiles)
-	{
-		const command = require(`${__dirname}/commands/${dir}/${file}`);
+const commandFiles = readdirSync(`${__dirname}/commands/`).filter(file => file.endsWith(".js"));
 
-		// Set a new item in the Collection
-		// With the key as the command name and the value as the exported module
-		client.commands.set(command.data.name, command);
-		console.log(`Command "${command.data.name}" loaded`);
-	}
-});
+for (const file of commandFiles)
+{
+	const command = require(`${__dirname}/commands/${file}`);
+
+	// Set a new item in the Collection
+	// With the key as the command name and the value as the exported module
+	client.commands.set(command.data.name, command);
+	console.log(`Command "${command.data.name}" loaded`);
+}
 
 //
 // Event Handler

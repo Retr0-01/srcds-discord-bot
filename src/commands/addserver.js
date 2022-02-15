@@ -31,14 +31,14 @@ module.exports =
 		const passwordOption = interaction.options.getString("password");
 		const filePath = path.resolve(__dirname, `../../servers/${nameOption}.json`);
 
-		let student = {
+		let json = {
 			address: addressOption,
 			password: passwordOption,
 			addedBy: interaction.user.tag,
 			addedById: interaction.user.id
 		};
 
-		let data = JSON.stringify(student);
+		let data = JSON.stringify(json);
 		fs.writeFileSync(filePath, data);
 
 		await interaction.reply({ content: "Server added successfully!", ephemeral: true });

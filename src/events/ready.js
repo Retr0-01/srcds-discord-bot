@@ -36,7 +36,10 @@ module.exports =
 
 		console.log(`Ready! Logged in as ${client.user.tag}`);
 
-		// Signal PM2 that we are ready to run
-		process.send("ready");
+		// If we are running with PM2, signal PM2 that we are ready to run
+		if (process.send)
+		{
+			process.send("ready");
+		}
 	},
 };

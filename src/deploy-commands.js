@@ -10,18 +10,15 @@ module.exports =
 		// Our final command array which will be sent to the API
 		const commands = [];
 
-		readdirSync(`${__dirname}/commands/`).forEach(dir =>
+		const commandFiles = readdirSync(`${__dirname}/commands/`).filter(file => file.endsWith(".js"));
+
+		for (const file of commandFiles)
 		{
-			const commandFiles = readdirSync(`${__dirname}/commands/${dir}/`).filter(file => file.endsWith(".js"));
+			const command = require(`${__dirname}/commands/${file}`);
 
-			for (const file of commandFiles)
-			{
-				const command = require(`${__dirname}/commands/${dir}/${file}`);
-
-				commands.push(command.data.toJSON());
-				console.log(`Command "${command.data.name}" loaded`);
-			}
-		});
+			commands.push(command.data.toJSON());
+			console.log(`[SLASH COMMANDS] - Command "${command.data.name}" loaded`);
+		}
 
 		const rest = new REST({ version: "9" }).setToken(token);
 
