@@ -17,7 +17,7 @@ module.exports =
 	async execute(interaction)
 	{
 		const nameOption = interaction.options.getString("name");
-		const filePath = path.resolve(__dirname, `../../servers/${nameOption}.json`);
+		const filePath = path.resolve(__dirname, `../servers/${nameOption}.json`);
 
 		if (fs.existsSync(filePath))
 		{

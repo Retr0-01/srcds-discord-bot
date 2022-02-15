@@ -24,7 +24,7 @@ module.exports =
 	{
 		const serverName = interaction.options.getString("server");
 		const command = interaction.options.getString("command");
-		const filePath = path.resolve(__dirname, `../../servers/${serverName}.json`);
+		const filePath = path.resolve(__dirname, `../servers/${serverName}.json`);
 		let rawData;
 
 		if (fs.existsSync(filePath))

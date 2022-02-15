@@ -22,6 +22,12 @@ module.exports =
 			option.setName("password")
 				.setDescription("The server's RCON password.")
 				.setRequired(true)
+		).addStringOption(option =>
+			option.setName("game")
+				.setDescription("The game this server is running.")
+				.setRequired(true)
+				.addChoice("Team Fortress 2", "tf2")
+				.addChoice("Counter-Strike: Global Offensive", "csgo")
 		),
 	permissions: [],
 	async execute(interaction)
@@ -29,11 +35,13 @@ module.exports =
 		const nameOption = interaction.options.getString("name");
 		const addressOption = interaction.options.getString("address");
 		const passwordOption = interaction.options.getString("password");
-		const filePath = path.resolve(__dirname, `../../servers/${nameOption}.json`);
+		const gameOption = interaction.options.getString("game");
+		const filePath = path.resolve(__dirname, `../servers/${nameOption}.json`);
 
 		let json = {
 			address: addressOption,
 			password: passwordOption,
+			game: gameOption,
 			addedBy: interaction.user.tag,
 			addedById: interaction.user.id
 		};
