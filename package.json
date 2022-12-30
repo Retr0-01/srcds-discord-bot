@@ -1,10 +1,10 @@
 {
   "name": "srcds-discord-bot",
-  "version": "0.2.0",
+  "version": "1.0.0",
   "description": "A Discord bot that allows you to communicate with your Source Dedicated Server.",
   "author": "Retr0#1799",
   "license": "MIT",
-  "main": "src/index.js",
+  "main": "src/index.ts",
   "homepage": "https://github.com/Retr0-01/srcds-discord-bot",
   "repository": {
     "type": "git",
@@ -14,9 +14,11 @@
     "url": "https://github.com/Retr0-01/srcds-discord-bot/issues"
   },
   "scripts": {
-    "start": "pm2 start ecosystem.config.js",
-    "lint": "eslint ./src/",
-    "updateCmds": "node src/deploy-commands.js"
+    "dev": "ts-node .",
+    "build": "tsc",
+    "prod": "node ./build/index.js",
+    "lint": "eslint .",
+    "pm2": "pm2 start ecosystem.config.js"
   },
   "keywords": [
     "discord-bot",
@@ -26,10 +28,18 @@
     "csgo"
   ],
   "dependencies": {
-    "@discordjs/builders": "^0.12.0",
-    "@discordjs/rest": "^0.3.0",
-    "discord-api-types": "^0.26.1",
-    "discord.js": "^13.6.0",
+    "@discordjs/rest": "^1.5.0",
+    "better-sqlite3": "^8.0.1",
+    "discord-api-types": "^0.37.24",
+    "discord.js": "^14.7.1",
+    "easy-table": "^1.2.0",
     "srcds-rcon": "^2.2.1"
+  },
+  "devDependencies": {
+    "@types/better-sqlite3": "^7.6.3",
+    "@typescript-eslint/eslint-plugin": "^5.47.1",
+    "@typescript-eslint/parser": "^5.47.1",
+    "eslint": "^8.30.0",
+    "typescript": "^4.9.4"
   }
 }

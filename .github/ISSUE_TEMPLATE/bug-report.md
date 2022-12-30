@@ -1,10 +1,9 @@
 ---
 name: Bug Report
-about: Create a report to help us improve
-title: "[BUG]"
-labels: ''
-assignees: ''
-
+about: Create a bug report to track down bugs.
+title: "[BUG] <bug name>"
+labels: 'bug'
+assignees: 'Retr0-01'
 ---
 
 **Description**
