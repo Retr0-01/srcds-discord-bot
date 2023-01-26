@@ -1,7 +1,7 @@
 CREATE TABLE IF NOT EXISTS 'servers' (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
-  serverName TEXT NOT NULL, 
-  serveraddress TEXT NOT NULL,
+  serverName TEXT NOT NULL UNIQUE, 
+  serverAddress TEXT NOT NULL UNIQUE,
   rconPassword TEXT NOT NULL,
   targetGame TEXT NOT NULL,
   createdBy TEXT NOT NULL,

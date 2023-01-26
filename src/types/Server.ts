@@ -2,7 +2,7 @@ export default interface Server
 {
 	id: number,
 	serverName: string,
-	serveraddress: string,
+	serverAddress: string,
 	rconPassword: string,
 	targetGame: string,
 	createdBy: string,

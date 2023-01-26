@@ -4,7 +4,7 @@ import { ChatInputCommandInteraction,
 	EmbedBuilder,
 	PermissionFlagsBits } from "discord.js";
 import EasyTable from "easy-table";
-import { writeFileSync, unlinkSync } from "fs";
+import { writeFileSync, unlinkSync, createWriteStream } from "fs";
 import path from "path";
 import Command from "../classes/Command";
 import Sqlite from "../classes/Sqlite";
@@ -108,9 +108,17 @@ export default class ServerCmd extends Command
 			const passwordOption = interaction.options.getString("password", true);
 			const gameOption = interaction.options.getString("game", true);
 
-			const query = Sqlite.prepare("INSERT INTO 'servers' (serverName, serveraddress, rconPassword, targetGame, createdBy, createdAt) VALUES (?, ?, ?, ?, ?, datetime('now'))");
-			query.run(nameOption, addressOption, passwordOption, gameOption, interaction.user.id);
-			return await interaction.reply({ content: "Server successfully added.", ephemeral: true });
+			const query = Sqlite.prepare("INSERT OR IGNORE INTO 'servers' (serverName, serverAddress, rconPassword, targetGame, createdBy, createdAt) VALUES (?, ?, ?, ?, ?, datetime('now'))");
+			const res = query.run(nameOption, addressOption, passwordOption, gameOption, interaction.user.id);
+
+			if (res.changes == 0)
+			{
+				return await interaction.reply({ content: "Failed to add server. You have probably inserted data that already exists.\nTIP: The ``name`` and ``address`` fields must be unique.", ephemeral: true });
+			}
+			else
+			{
+				return await interaction.reply({ content: "Server successfully added.", ephemeral: true });
+			}
 		}
 		else if (action === "remove")
 		{
@@ -141,7 +149,7 @@ export default class ServerCmd extends Command
 			if (!addressOption && !passwordOption && !gameOption) return await interaction.reply({ content: "No changes detected.", ephemeral: true });
 
 			let queryString = "UPDATE 'servers' SET ";
-			if (addressOption) queryString += `serveraddress = '${addressOption}', `;
+			if (addressOption) queryString += `serverAddress = '${addressOption}', `;
 			if (passwordOption) queryString += `rconPassword = '${passwordOption}', `;
 			if (gameOption) queryString += `targetGame = '${gameOption}', `;
 			queryString += "modifiedBy = (?), modifiedAt = datetime('now') WHERE id = (?)";
@@ -166,7 +174,7 @@ export default class ServerCmd extends Command
 				.setTitle(`Server: ${server.serverName}`)
 				.setDescription(`Added by <@${server.createdBy}> at ${server.createdAt}\nLatest Edit: ${editString}`)
 				.addFields(
-					{ name: "Address", value: server.serveraddress, inline: true },
+					{ name: "Address", value: server.serverAddress, inline: true },
 					{ name: "Game", value: server.targetGame, inline: true },
 					{ name: "Password", value: `||${server.rconPassword}||`, inline: true },
 				)
@@ -191,7 +199,7 @@ export default class ServerCmd extends Command
 			const serverName = interaction.options.getString("name", true);
 			const command = interaction.options.getString("command", true);
 
-			const query = Sqlite.prepare("SELECT serveraddress, rconPassword FROM 'servers' WHERE serverName=(?)");
+			const query = Sqlite.prepare("SELECT serverAddress, rconPassword FROM 'servers' WHERE serverName=(?)");
 			const server: Server = query.get(serverName);
 
 			if (!server) return await interaction.reply({ content: "Server not found.", ephemeral: true });
@@ -199,7 +207,7 @@ export default class ServerCmd extends Command
 			await interaction.deferReply();
 
 			const rcon = RCON({
-				address: server.serveraddress,
+				address: server.serverAddress,
 				password: server.rconPassword,
 			});
 
@@ -213,7 +221,7 @@ export default class ServerCmd extends Command
 					// goes over Discord's body limit (2000 chars) we will upload it as a file.
 					if (res.length > 2000)
 					{
-						const tempFilePath = path.resolve(__dirname, "server_response.txt");
+						const tempFilePath = path.resolve(__dirname, "rcon_response.txt");
 						writeFileSync(tempFilePath, res);
 						await interaction.editReply({ content: "``SERVER RESPONSE``", files: [tempFilePath] });
 						unlinkSync(tempFilePath);
@@ -234,37 +242,55 @@ export default class ServerCmd extends Command
 		else if (action === "rcon_all")
 		{
 			const command = interaction.options.getString("command", true);
-			const query = Sqlite.prepare("SELECT id, serverName, serveraddress, rconPassword FROM 'servers'");
+			const query = Sqlite.prepare("SELECT id, serverName, serverAddress, rconPassword FROM 'servers'");
 			const allServers: Server[] = query.all();
 			const table = new EasyTable;
 
+			const tempFilePath = path.resolve(__dirname, "rcon_all_responses.txt");
+
 			await interaction.deferReply();
+
+			const stream = createWriteStream(tempFilePath, { flags:"a" });
 
 			for (const server of allServers)
 			{
 				table.cell("ID", server.id);
 				table.cell("SERVER NAME", server.serverName);
-				table.cell("SERVER ADDRESS", server.serveraddress);
+				table.cell("SERVER ADDRESS", server.serverAddress);
 
 				const rcon = RCON({
-					address: server.serveraddress,
+					address: server.serverAddress,
 					password: server.rconPassword,
 				});
+
+				stream.write("==============================================\n")
+				stream.write(`SERVER: "${server.serverName}" @ ${server.serverAddress}\n`);
+				stream.write("==============================================\n")
 
 				await rcon.connect().then(async () =>
 				{
 					await rcon.command(command).then(async (res: string) =>
 					{
 						table.cell("EXECUTED", "YES");
-						if (res) table.cell("RESPONDED", "YES")
-						else table.cell("RESPONDED", "NO");
+
+						if (res)
+						{
+							stream.write(res + "\n");
+							table.cell("RESPONDED", "YES")
+						}
+						else
+						{
+							stream.write("NO RESPONSE\n\n");
+							table.cell("RESPONDED", "NO");
+						}
 						table.cell("ERROR", "-");
 					});
 				}).then(async () =>
 				{
 					await rcon.disconnect();
-				}).catch(() =>
+				}).catch((err: Error) =>
 				{
+					stream.write(`ERROR: ${err.message}\n\n`);
 					table.cell("EXECUTED", "NO");
 					table.cell("RESPONDED", "-");
 					table.cell("ERROR", "YES");
@@ -272,7 +298,11 @@ export default class ServerCmd extends Command
 
 				table.newRow();
 			}
-			await interaction.editReply(`\`\`\`${table.toString()}\`\`\``);
+
+			stream.close();
+
+			await interaction.editReply({ content: `\`\`\`${table.toString()}\`\`\``, files: [tempFilePath] });
+			unlinkSync(tempFilePath);
 		}
 	}
 
