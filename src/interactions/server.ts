@@ -126,7 +126,7 @@ export default class ServerCmd extends Command
 
 			// Ensure it exists first.
 			let query = Sqlite.prepare("SELECT id FROM 'servers' WHERE serverName=(?)");
-			const server: Server = query.get(serverName);
+			const server: Server = query.get(serverName) as Server;
 			if (!server) return await interaction.reply({ content: "Server not found.", ephemeral: true });
 
 			query = Sqlite.prepare("DELETE FROM 'servers' WHERE id=(?)");
@@ -139,7 +139,7 @@ export default class ServerCmd extends Command
 			const serverName = interaction.options.getString("name", true);
 
 			let query = Sqlite.prepare("SELECT id FROM 'servers' WHERE serverName=(?)");
-			const server: Server = query.get(serverName);
+			const server: Server = query.get(serverName) as Server;
 			if (!server) return await interaction.reply({ content: "Server not found.", ephemeral: true });
 
 			const addressOption = interaction.options.getString("address");
@@ -164,7 +164,7 @@ export default class ServerCmd extends Command
 			const serverName = interaction.options.getString("name", true);
 
 			const query = Sqlite.prepare("SELECT * FROM 'servers' WHERE serverName=(?)");
-			const server: Server = query.get(serverName);
+			const server: Server = query.get(serverName) as Server;
 			if (!server) return await interaction.reply({ content: "Server not found.", ephemeral: true });
 
 			let editString = "Never";
@@ -200,7 +200,7 @@ export default class ServerCmd extends Command
 			const command = interaction.options.getString("command", true);
 
 			const query = Sqlite.prepare("SELECT serverAddress, rconPassword FROM 'servers' WHERE serverName=(?)");
-			const server: Server = query.get(serverName);
+			const server: Server = query.get(serverName) as Server;
 
 			if (!server) return await interaction.reply({ content: "Server not found.", ephemeral: true });
 
@@ -243,7 +243,7 @@ export default class ServerCmd extends Command
 		{
 			const command = interaction.options.getString("command", true);
 			const query = Sqlite.prepare("SELECT id, serverName, serverAddress, rconPassword FROM 'servers'");
-			const allServers: Server[] = query.all();
+			const allServers: Server[] = query.all() as Server[];
 			const table = new EasyTable;
 
 			const tempFilePath = path.resolve(__dirname, "rcon_all_responses.txt");
@@ -314,7 +314,7 @@ export default class ServerCmd extends Command
 		if (focusedOption.name === "name")
 		{
 			const query = Sqlite.prepare("SELECT serverName FROM servers LIMIT 25");
-			const serverList: Server[] = query.all();
+			const serverList: Server[] = query.all() as Server[];
 			serverList.forEach(server =>
 			{
 				choices.push(server.serverName);
